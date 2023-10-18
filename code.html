@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>APP NAME: By Mark Spectre</title>
+  <title>Movie List: By Jon-Erik Ekdahl</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -31,7 +31,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">
         <img class="me-2" src="/img/je_logo_only_dark.svg" height="30" />
-        APP NAME
+        Movie List
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,19 +50,19 @@
           </li>
           <li class="nav-item">
             <!-- CHANGE ME TO THE REAL REPO LINK -->
-            <a class="nav-link" href="#">The Repo</a>
+            <a class="nav-link" href="https://github.com/jelekdahl/GuardianMovieList" target="_blank"
+              rel="noopener noreferrer">The Repo</a>
           </li>
           <li class="nav-item">
             <!-- CHANGE ME TO REAL PORTFOLIO LINK -->
-            <a class="nav-link" href="https://stunning-donut-3b9321.netlify.app/">
-              About
-            </a>
+            <a class="nav-link" href="https://stunning-donut-3b9321.netlify.app/" target="_blank"
+              rel="noopener noreferrer">About</a>
           </li>
           <li class="nav-item">
             <!-- CHANGE ME TO THE DEPLOYED BLOG PROJECT -->
             <!-- NOTE: it would be a great idea to -->
             <!-- write a blog post about each challenge and link it here -->
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="#" target="_blank" rel="noopener noreferrer">
               Blog
             </a>
           </li>
@@ -73,32 +73,49 @@
 
   <main class="container py-3">
     <h1 class="border-bottom border-2 border-dark">The Code</h1>
-    <div class="row">
-      <div class="col-12 col-lg-8">
-        <pre class="line-numbers">
-          <code class="language-js">
-function displayMessage() {
-  //get the text out of our input and assign it to a variable
-  let msg = document.getElementById('message').value;
 
-  //alert('Hello Guardian Cohort!');
-  Swal.fire(
-    {
-      backdrop: false,
-      title: 'APP NAME',
-      text: msg, // <-- replace this text with that variable
-    }
-  );
-}
-          </code>
-        </pre>
+    <div class="my-3">
+      <p class="h6">Click the buttons to hide/show the corresponding code excerpts.</p>
+    </div>
+
+    <!-- Function: displayMessage -->
+    <div class="row">
+      <div>
+        <button class="codeHeader h2 border-0 rounded-3 w-100" type="button" data-bs-toggle="collapse"
+          href="#codeDisplayMessage" aria-expanded="false" aria-controls="codeDisplayMessage">
+          Function: displayMessage
+        </button>
       </div>
-      <div class="col-12 col-lg-4">
-        <p>The code is structured in one function</p>
-        <p>
-          <code>displayMessage</code> displays a SweetAlert
-          when the button is pressed.
-        </p>
+
+      <div id="codeDisplayMessage"
+        class="row collapse show container bg-light ms-0 mb-3 p-3 border border-1 border-dark-subtle rounded-3">
+        <div class="col-12 col-lg-8">
+          <pre class="line-numbers">
+              <code class="language-js">
+                function displayMessage() {
+                  //get the text out of our input and assign it to a variable
+                  let msg = document.getElementById('message').value;
+    
+                  //alert('Hello Guardian Cohort!');
+                  Swal.fire(
+                    {
+                      backdrop: false,
+                      title: 'APP NAME',
+                      text: msg, // <-- replace this text with that variable
+                    }
+                  );
+                }
+              </code>
+            </pre>
+        </div>
+
+        <div class="col-12 col-lg-4">
+          <p>The code is structured in one function</p>
+          <p>
+            <code>displayMessage</code> displays a SweetAlert
+            when the button is pressed.
+          </p>
+        </div>
       </div>
     </div>
   </main>
@@ -113,9 +130,12 @@ function displayMessage() {
           <img src="/img/je_logo_name_dark.svg" height="50" />
         </div>
         <div class="col text-center text-lg-end">
-          <a href="https://www.linkedin.com/in/jon-erik-ekdahl-96804640/"><i class="bi bi-linkedin"></i></a>
-          <a href="https://github.com/jelekdahl"><i class="bi bi-github"></i></a>
-          <a href="mailto:jelekdahl@gmail.com"><i class="bi bi-envelope-at-fill"></i></a>
+          <a href="https://www.linkedin.com/in/jon-erik-ekdahl-96804640/" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/jelekdahl" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-github"></i></a>
+          <a href="mailto:jelekdahl@gmail.com" target="_blank" rel="noopener noreferrer">
+            <i class="bi bi-envelope-at-fill"></i></a>
         </div>
       </div>
     </div>
