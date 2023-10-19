@@ -70,3 +70,34 @@ footer .bi:hover {
   background-color: var(--je-secondary-color);
   color: var(--je-dark-color);
 }
+
+#movieCert {
+  text-align: center;
+  text-wrap: nowrap;
+  box-sizing: border-box;
+  padding: 1px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+}
+
+.star {
+  color: gold;
+}
+
+.rank {
+  color: green;
+}
+
+.genre {
+  text-align: center;
+  text-wrap: nowrap;
+  box-sizing: border-box;
+  display: inline-block;
+  padding: 2px 10px 2px 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 16px;
+  margin-bottom: 3px;
+  margin-inline-end: 3px;
+}
