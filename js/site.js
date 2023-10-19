@@ -11,7 +11,12 @@ async function getMovies() {
     let data = await response.json();
     return data;
   } catch (error) {
-    console.error(error)
+    Swal.fire({
+      backdrop: false,
+      title: 'Oops!',
+      text: 'Something went wrong reaching the TMDB API.',
+      icon: 'error'
+    });
   }
 }
 
@@ -26,7 +31,12 @@ async function getMovie(movieId) {
     let data = await response.json();
     return data;
   } catch (error) {
-    console.error(error)
+    Swal.fire({
+      backdrop: false,
+      title: 'Oops!',
+      text: 'Something went wrong reaching the TMDB API.',
+      icon: 'error'
+    });
   }
 }
 
@@ -41,7 +51,12 @@ async function getMovieReleaseDates(movieId) {
     let data = await response.json();
     return data;
   } catch (error) {
-    console.error(error)
+    Swal.fire({
+      backdrop: false,
+      title: 'Oops!',
+      text: 'Something went wrong reaching the TMDB API.',
+      icon: 'error'
+    });
   }
 }
 
@@ -56,7 +71,12 @@ async function getMovieVideos(movieId) {
     let data = await response.json();
     return data;
   } catch (error) {
-    console.error(error)
+    Swal.fire({
+      backdrop: false,
+      title: 'Oops!',
+      text: 'Something went wrong reaching the TMDB API.',
+      icon: 'error'
+    });
   }
 }
 
@@ -64,6 +84,7 @@ async function displayMovies() {
   let data = await getMovies();
 
   const movieListDiv = document.getElementById('movie-list');
+  movieListDiv.innerHTML = '';
   const moviePosterTemplate = document.getElementById('movie-card-template');
 
   let movies = data.results;
