@@ -1,7 +1,7 @@
 :root {
-  --je-primary-color: #001e43;
+  --je-primary-color: #830004;
   /* theme-100 or theme-200 // theme-800 or theme-900 ? */
-  --je-secondary-color: #ff993b;
+  --je-secondary-color: #DABE76;
   /* theme-core or theme-500 or theme-600 */
   --je-light-color: #dfe3e4;
   --je-dark-color: #1b1b1b;
@@ -55,10 +55,19 @@ footer .bi:hover {
   color: var(--je-secondary-color);
 }
 
-.app-logo {
-  max-width: 400px;
+.img-container {
+  background-color: var(--je-primary-color);
+  height: 360px;
+  max-width: 360px;
   border-radius: 15px;
-  /* box-shadow: ; */
+  display: flex;
+  justify-content: center;
+}
+
+.app-logo {
+  width: 90%;
+  border-radius: 15px;
+  background-color: var(--je-primary-color);
 }
 
 .codeHeader {
