@@ -55,36 +55,32 @@ footer .bi:hover {
   color: var(--je-secondary-color);
 }
 
-.img-container {
-  background-color: var(--je-primary-color);
-  height: 360px;
-  max-width: 360px;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-}
-
 .app-logo {
-  width: 90%;
+  max-width: 400px;
   border-radius: 15px;
   background-color: var(--je-primary-color);
 }
 
-.codeHeader {
+.je-button,
+.code-header {
   background-color: var(--je-primary-color);
   color: var(--je-light-color);
+  /* border-color: var(--je-light-color); */
 }
 
-.codeHeader:hover {
+.je-button:hover,
+.je-button:focus,
+.code-header:hover {
   background-color: var(--je-secondary-color);
   color: var(--je-dark-color);
+  /* border-color: var(--je-dark-color); */
 }
 
 #movieCert {
   text-align: center;
   text-wrap: nowrap;
   box-sizing: border-box;
-  padding: 1px;
+  padding: 1px 3px;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -95,7 +91,7 @@ footer .bi:hover {
 }
 
 .rank {
-  color: green;
+  color: lightgreen;
 }
 
 .genre {
@@ -109,4 +105,29 @@ footer .bi:hover {
   border-radius: 16px;
   margin-bottom: 3px;
   margin-inline-end: 3px;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.modal-header {
+  background-color: var(--je-primary-color);
+  color: var(--je-light-color);
+}
+
+.modal-footer {
+  background-color: var(--je-primary-color);
+  color: var(--je-light-color);
+}
+
+#modalBody {
+  color: var(--je-light-color);
+  background-size: cover;
+  background-repeat: no-repeat;
+  max-width: 100%;
 }

@@ -102,7 +102,7 @@ async function displayMovies() {
     let movieParagraphElement = movieCard.querySelector('.card-text');
     movieParagraphElement.textContent = movie.overview;
 
-    let movieButton = movieCard.querySelector('.btn-primary');
+    let movieButton = movieCard.querySelector('.je-button');
     movieButton.setAttribute('data-movieId', movie.id);
     movieButton.setAttribute('data-movieRank', i + 1);
 
@@ -121,21 +121,19 @@ async function showMovieDetails(clickedBtn) {
   // put those details into my modal
   let modal = document.getElementById('movieModal');
 
+  let modalBody = document.getElementById('modalBody');
+
+  modalBody.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
+  if (movie.backdrop_path) {
+    modalBody.style.backgroundImage +=
+      `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+  }
+
   document.getElementById('movieModalLabel').textContent = movie.title;
 
   let movieTitleElement = document.getElementById('movieTitle');
   movieTitleElement.textContent = movie.title;
 
-  let movieDate = new Date(movie.release_date);
-  document.getElementById('movieDate').innerText = movieDate.getFullYear();
-
-  let movieCert = await getCert(movieId);
-  if (!movieCert) movieCert = 'Certification Unknown';
-  document.getElementById('movieCert').innerText = movieCert;
-
-  let movieTime = '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
-  document.getElementById('movieTime').innerText = movieTime;
-  
   let movieGenresElement = document.getElementById('movieGenres');
   movieGenresElement.innerHTML = '';
   let genres = movie.genres;
@@ -150,6 +148,14 @@ async function showMovieDetails(clickedBtn) {
 
   let movieTaglineElement = document.getElementById('movieTagline');
   movieTaglineElement.innerText = `"${movie.tagline}"`;
+  if (movie.tagline) {
+    movieTaglineElement.classList.remove('d-none');
+    movieTaglineElement.classList.add('d-block');
+  }
+  else {
+    movieTaglineElement.classList.remove('d-block');
+    movieTaglineElement.classList.add('d-none');
+  }
 
   let movieOverviewElement = document.getElementById('movieOverview');
   movieOverviewElement.innerText = movie.overview;
@@ -158,12 +164,12 @@ async function showMovieDetails(clickedBtn) {
   let movieScoreElement = document.getElementById('movieScore');
   movieScoreElement.innerText = movieScore.toFixed(1) + '/10';
 
-  let movieVotes = Math.round(movie.vote_count);
+  // let movieVotes = Math.round(movie.vote_count);
   let movieVotesElement = document.getElementById('movieVotes');
   movieVotesElement.innerHTML = Intl.NumberFormat('en-US', {
     notation: "compact",
     maximumFractionDigits: 1
-  }).format(movie.vote_count);
+  }).format(movie.vote_count) + ' vote' + (movie.vote_count != 1 ? 's' : '');
 
   let movieRankElement = document.getElementById('movieRank');
   movieRankElement.innerText = '#' + clickedBtn.getAttribute('data-movieRank');
@@ -173,14 +179,30 @@ async function showMovieDetails(clickedBtn) {
 
   let modalFooter = modal.querySelector('.modal-footer');
   let btnVisit = modalFooter.querySelector('a');
-  btnVisit.href = movie.homepage;
+  if (movie.homepage) {
+    btnVisit.classList.remove('invisible');
+    btnVisit.href = movie.homepage;
+  } else {
+    btnVisit.classList.add('invisible');
+    btnVisit.href = '';
+  }
+
+  let movieDate = new Date(movie.release_date);
+  document.getElementById('movieDate').innerText = movieDate.getFullYear();
+
+  let movieTime = '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
+  document.getElementById('movieTime').innerText = movieTime;
+
+  let movieCert = await getCert(movieId);
+  if (!movieCert) movieCert = 'MPA Rating Unknown';
+  document.getElementById('movieCert').innerText = movieCert;
 }
 
 async function getCert(movieId) {
   let cert, latestDate;
 
   let data = await getMovieReleaseDates(movieId);
-  
+
   if (data) {
     let results = data.results;
 
