@@ -119,7 +119,6 @@ async function displayMovies() {
 }
 
 async function showMovieDetails(clickedBtn) {
-
   const modalBody = document.getElementById('modalBody');
   modalBody.classList.add('d-none');
 
@@ -133,88 +132,111 @@ async function showMovieDetails(clickedBtn) {
   let movie = await getMovie(movieId);
 
   // put those details into my modal
-  let modal = document.getElementById('movieModal');
+  modalBody.style.backgroundImage = getStrImgBG(movie);
+  document.getElementById('movieDate').innerText = getYear(movie);
+  document.getElementById('movieCert').innerText = await getCert(movieId);
+  document.getElementById('movieTime').innerText = getHM(movie);
+  document.getElementById('movieScore').innerText = getScoreStr(movie);
+  document.getElementById('movieVotes').innerHTML = getVoteStr(movie);
+  document.getElementById('movieRank').innerText = rankFromBtn(clickedBtn);
+  document.getElementById('movieModalLabel').textContent = movie.title;
+  document.getElementById('movieTitle').textContent = movie.title;
+  displayGenreLabels(movie, 'movieGenres');
+  displayTagline(movie, 'movieTagline');
+  document.getElementById('movieOverview').innerText = movie.overview;
+  document.getElementById('moviePoster').src = getPosterPath(movie);
 
-  modalBody.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
+  let modalFooter = document.getElementById('movieModal').querySelector('.modal-footer');
+  let btnVisit = modalFooter.querySelector('a');
+  setSiteBtnVisibility(movie, btnVisit);
+
+  modalSpinner.classList.add('d-none');
+  modalBody.classList.remove('d-none');
+}
+
+function getStrImgBG(movie) {
+  let strImgBG = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
+
   if (movie.backdrop_path) {
-    modalBody.style.backgroundImage +=
-      `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+    strImgBG += `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
   }
 
-  document.getElementById('movieModalLabel').textContent = movie.title;
+  return strImgBG;
+}
 
-  let movieTitleElement = document.getElementById('movieTitle');
-  movieTitleElement.textContent = movie.title;
+function displayGenreLabels(movie, containerId) {
+  let containerElement = document.getElementById(containerId);
+  containerElement.innerHTML = '';
 
-  let movieGenresElement = document.getElementById('movieGenres');
-  movieGenresElement.innerHTML = '';
   let genres = movie.genres;
   if (genres) {
     for (let i = 0; i < genres.length; i++) {
       let newSpan = document.createElement('span');
       newSpan.classList.add('genre')
       newSpan.innerText = genres[i].name;
-      movieGenresElement.appendChild(newSpan);
+      containerElement.appendChild(newSpan);
     }
   }
+}
 
-  let movieTaglineElement = document.getElementById('movieTagline');
-  movieTaglineElement.innerText = `"${movie.tagline}"`;
+function displayTagline(movie, containerId) {
+  let containerElement = document.getElementById(containerId);
+  containerElement.innerText = `"${movie.tagline}"`;
+
   if (movie.tagline) {
-    movieTaglineElement.classList.remove('d-none');
-    movieTaglineElement.classList.add('d-block');
+    containerElement.classList.remove('d-none');
+    containerElement.classList.add('d-block');
   }
   else {
-    movieTaglineElement.classList.remove('d-block');
-    movieTaglineElement.classList.add('d-none');
+    containerElement.classList.remove('d-block');
+    containerElement.classList.add('d-none');
   }
+}
 
-  let movieOverviewElement = document.getElementById('movieOverview');
-  movieOverviewElement.innerText = movie.overview;
+function getScoreStr(movie) {
+  let score = Math.round(movie.vote_average * 10) / 10;
+  return score.toFixed(1) + '/10';
+}
 
-  let movieScore = Math.round(movie.vote_average * 10) / 10;
-  let movieScoreElement = document.getElementById('movieScore');
-  movieScoreElement.innerText = movieScore.toFixed(1) + '/10';
+function getVoteStr(movie) {
+  let compactFormat = Intl.NumberFormat(
+    'en-US',
+    { notation: "compact", maximumFractionDigits: 1 }
+  );
 
-  let movieVotesElement = document.getElementById('movieVotes');
-  movieVotesElement.innerHTML = Intl.NumberFormat('en-US', {
-    notation: "compact",
-    maximumFractionDigits: 1
-  }).format(movie.vote_count) + ' vote' + (movie.vote_count != 1 ? 's' : '');
+  return compactFormat.format(movie.vote_count) + ' vote'
+    + (movie.vote_count != 1 ? 's' : '');
+}
 
-  let movieRankElement = document.getElementById('movieRank');
-  movieRankElement.innerText = '#' + clickedBtn.getAttribute('data-movieRank');
+function rankFromBtn(btn) {
+  return '#' + btn.getAttribute('data-movieRank');
+}
 
-  let movieImgElement = document.getElementById('moviePoster');
-  movieImgElement.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+function getPosterPath(movie) {
+  return `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+}
 
-  let modalFooter = modal.querySelector('.modal-footer');
-  let btnVisit = modalFooter.querySelector('a');
+function setSiteBtnVisibility(movie, siteBtn) {
   if (movie.homepage) {
-    btnVisit.classList.remove('invisible');
-    btnVisit.href = movie.homepage;
+    siteBtn.classList.remove('invisible');
+    siteBtn.href = movie.homepage;
   } else {
-    btnVisit.classList.add('invisible');
-    btnVisit.href = '';
+    siteBtn.classList.add('invisible');
+    siteBtn.href = '';
   }
+}
 
+function getYear(movie) {
   let movieDate = new Date(movie.release_date);
-  document.getElementById('movieDate').innerText = movieDate.getFullYear();
+  return movieDate.getFullYear();
+}
 
-  let movieTime = '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
-  document.getElementById('movieTime').innerText = movieTime;
-
-  let movieCert = await getCert(movieId);
-  if (!movieCert) movieCert = 'MPA Rating Unknown';
-  document.getElementById('movieCert').innerText = movieCert;
-
-  modalSpinner.classList.add('d-none');
-  modalBody.classList.remove('d-none');
+function getHM(movie) {
+  return '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
 }
 
 async function getCert(movieId) {
-  let cert, latestDate;
-
+  let cert = 'MPA Rating Unknown';
   let data = await getMovieReleaseDates(movieId);
 
   if (data) {
@@ -231,7 +253,8 @@ async function getCert(movieId) {
       }
 
       if (releaseDates) {
-        let releaseDate;
+        let latestDate, releaseDate;
+
         for (let i = 0; i < releaseDates.length; i++) {
           releaseDate = new Date(releaseDates[i].release_date);
 
