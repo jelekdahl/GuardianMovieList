@@ -84,6 +84,11 @@ async function displayMovies() {
   let data = await getMovies();
 
   const movieListDiv = document.getElementById('movie-list');
+  movieListDiv.classList.add('d-none');
+
+  const movieListSpinner = document.getElementById('movieListSpinner');
+  movieListSpinner.classList.remove('d-none');
+
   movieListDiv.innerHTML = '';
   const moviePosterTemplate = document.getElementById('movie-card-template');
 
@@ -108,9 +113,18 @@ async function displayMovies() {
 
     movieListDiv.appendChild(movieCard);
   }
+
+  movieListSpinner.classList.add('d-none');
+  movieListDiv.classList.remove('d-none');
 }
 
 async function showMovieDetails(clickedBtn) {
+
+  const modalBody = document.getElementById('modalBody');
+  modalBody.classList.add('d-none');
+
+  const modalSpinner = document.getElementById('modalSpinner');
+  modalSpinner.classList.remove('d-none');
 
   // get the ID of the movie that was clicked
   let movieId = clickedBtn.getAttribute('data-movieId');
@@ -120,8 +134,6 @@ async function showMovieDetails(clickedBtn) {
 
   // put those details into my modal
   let modal = document.getElementById('movieModal');
-
-  let modalBody = document.getElementById('modalBody');
 
   modalBody.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
   if (movie.backdrop_path) {
@@ -164,7 +176,6 @@ async function showMovieDetails(clickedBtn) {
   let movieScoreElement = document.getElementById('movieScore');
   movieScoreElement.innerText = movieScore.toFixed(1) + '/10';
 
-  // let movieVotes = Math.round(movie.vote_count);
   let movieVotesElement = document.getElementById('movieVotes');
   movieVotesElement.innerHTML = Intl.NumberFormat('en-US', {
     notation: "compact",
@@ -196,6 +207,9 @@ async function showMovieDetails(clickedBtn) {
   let movieCert = await getCert(movieId);
   if (!movieCert) movieCert = 'MPA Rating Unknown';
   document.getElementById('movieCert').innerText = movieCert;
+
+  modalSpinner.classList.add('d-none');
+  modalBody.classList.remove('d-none');
 }
 
 async function getCert(movieId) {

@@ -70,6 +70,13 @@
 
   <main class="container-xl py-3">
     <h1 class="text-center mt-3 display-3">Popular Movies</h1>
+
+    <div id="movieListSpinner" class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
     <div id="movie-list" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 justify-content-evenly">
       <!-- Movie cards go here -->
     </div>
@@ -126,6 +133,13 @@
           <h1 class="modal-title fs-5" id="movieModalLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+
+        <div id="modalSpinner" class="text-center">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+
         <div id="modalBody" class="modal-body row ms-0">
           <div class="col-12 col-lg-5">
             <div class="row">
@@ -169,7 +183,6 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="modal-footer">
