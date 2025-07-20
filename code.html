@@ -73,81 +73,677 @@
     </div>
 
     <div class="accordion accordion-flush" id="accordionCode">
-      <!-- Function: displayMessage -->
+      <!-- Global Constants and Variables  -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
+        <h2 class="accordion-header" id="headingConstLet">
           <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            Function: displayMessage
+              data-bs-target="#collapseConstLet" aria-expanded="true" aria-controls="collapseConstLet">
+            Global Constants and Variables
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+        <div id="collapseConstLet" class="accordion-collapse collapse" aria-labelledby="headingConstLet">
           <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
             <div class="col-12 col-lg-8">
               <pre class="line-numbers">
                 <code class="language-js">
-                  function displayMessage() {
-                    //get the text out of our input and assign it to a variable
-                    let msg = document.getElementById('message').value;
-      
-                    //alert('Hello Guardian Cohort!');
-                    Swal.fire(
-                      {
-                        backdrop: false,
-                        title: 'APP NAME',
-                        text: msg, // <-- replace this text with that variable
-                      }
-                    );
-                  }
+                  const API_KEY = "???"
                 </code>
               </pre>
             </div>
 
             <div class="col-12 col-lg-4">
-              <p>The code is structured in one function</p>
               <p>
-                <code>displayMessage</code> displays a SweetAlert
-                when the button is pressed.
+                Description coming soon
               </p>
             </div>
           </div>
         </div>
       </div>
-      <!-- Function: displayMessage -->
+
+      <!-- Function: getMovies -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
+        <h2 class="accordion-header" id="headingGetMovies">
           <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            Function: displayMessage
+              data-bs-target="#collapseGetMovies" aria-expanded="true" aria-controls="collapseGetMovies">
+            Function: getMovies
           </button>
         </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+        <div id="collapseGetMovies" class="accordion-collapse collapse" aria-labelledby="headingGetMovies">
           <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
             <div class="col-12 col-lg-8">
               <pre class="line-numbers">
                 <code class="language-js">
-                  function displayMessage() {
-                    //get the text out of our input and assign it to a variable
-                    let msg = document.getElementById('message').value;
-      
-                    //alert('Hello Guardian Cohort!');
-                    Swal.fire(
-                      {
+                  async function getMovies() {
+                    try {
+                      let response = await fetch('https://api.themoviedb.org/3/movie/popular', {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
+
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
                         backdrop: false,
-                        title: 'APP NAME',
-                        text: msg, // <-- replace this text with that variable
-                      }
-                    );
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
+                    }
                   }
                 </code>
               </pre>
             </div>
 
             <div class="col-12 col-lg-4">
-              <p>The code is structured in one function</p>
               <p>
-                <code>displayMessage</code> displays a SweetAlert
-                when the button is pressed.
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getMovie -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetMovie">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetMovie" aria-expanded="true" aria-controls="collapseGetMovie">
+            Function: getMovie
+          </button>
+        </h2>
+        <div id="collapseGetMovie" class="accordion-collapse collapse" aria-labelledby="headingGetMovie">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function getMovie(movieId) {
+                    try {
+                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
+
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
+                        backdrop: false,
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getMovieReleaseDates -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetMovieReleaseDates">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetMovieReleaseDates" aria-expanded="true" aria-controls="collapseGetMovieReleaseDates">
+            Function: getMovieReleaseDates
+          </button>
+        </h2>
+        <div id="collapseGetMovieReleaseDates" class="accordion-collapse collapse" aria-labelledby="headingGetMovieReleaseDates">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function getMovieReleaseDates(movieId) {
+                    try {
+                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/release_dates`, {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
+
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
+                        backdrop: false,
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: displayMovies -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplayMovies">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDisplayMovies" aria-expanded="true" aria-controls="collapseDisplayMovies">
+            Function: displayMovies
+          </button>
+        </h2>
+        <div id="collapseDisplayMovies" class="accordion-collapse collapse" aria-labelledby="headingDisplayMovies">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function displayMovies() {
+                    let data = await getMovies();
+
+                    const movieListDiv = document.getElementById('movie-list');
+                    movieListDiv.classList.add('d-none');
+
+                    const movieListSpinner = document.getElementById('movieListSpinner');
+                    movieListSpinner.classList.remove('d-none');
+
+                    movieListDiv.innerHTML = '';
+                    const moviePosterTemplate = document.getElementById('movie-card-template');
+
+                    let movies = data.results;
+
+                    for (let i = 0; i < movies.length; i++) {
+                      let movie = movies[i];
+                      let movieCard = moviePosterTemplate.content.cloneNode(true);
+
+                      let movieImgElement = movieCard.querySelector('.card-img-top');
+                      movieImgElement.src = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+
+                      let movieTitleElement = movieCard.querySelector('.card-body > h5');
+                      movieTitleElement.textContent = movie.title;
+
+                      let movieParagraphElement = movieCard.querySelector('.card-text');
+                      movieParagraphElement.textContent = movie.overview;
+
+                      let movieButton = movieCard.querySelector('.je-button');
+                      movieButton.setAttribute('data-movieId', movie.id);
+                      movieButton.setAttribute('data-movieRank', i + 1);
+
+                      movieListDiv.appendChild(movieCard);
+                    }
+
+                    movieListSpinner.classList.add('d-none');
+                    movieListDiv.classList.remove('d-none');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: showMovieDetails -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingShowMovieDetails">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseShowMovieDetails" aria-expanded="true" aria-controls="collapseShowMovieDetails">
+            Function: showMovieDetails
+          </button>
+        </h2>
+        <div id="collapseShowMovieDetails" class="accordion-collapse collapse" aria-labelledby="headingShowMovieDetails">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function showMovieDetails(clickedBtn) {
+                    const modalBody = document.getElementById('modalBody');
+                    modalBody.classList.add('d-none');
+
+                    const modalSpinner = document.getElementById('modalSpinner');
+                    modalSpinner.classList.remove('d-none');
+
+                    // get the ID of the movie that was clicked
+                    let movieId = clickedBtn.getAttribute('data-movieId');
+
+                    // get the details of the movie with that ID from TMDB API
+                    let movie = await getMovie(movieId);
+
+                    // put those details into my modal
+                    modalBody.style.backgroundImage = getStrImgBG(movie);
+                    document.getElementById('movieDate').innerText = getYear(movie);
+                    document.getElementById('movieCert').innerText = await getCert(movieId);
+                    document.getElementById('movieTime').innerText = getHM(movie);
+                    document.getElementById('movieScore').innerText = getScoreStr(movie);
+                    document.getElementById('movieVotes').innerHTML = getVoteStr(movie);
+                    document.getElementById('movieRank').innerText = rankFromBtn(clickedBtn);
+                    document.getElementById('movieModalLabel').textContent = movie.title;
+                    document.getElementById('movieTitle').textContent = movie.title;
+                    displayGenreLabels(movie, 'movieGenres');
+                    displayTagline(movie, 'movieTagline');
+                    document.getElementById('movieOverview').innerText = movie.overview;
+                    document.getElementById('moviePoster').src = getPosterPath(movie);
+
+                    let modalFooter = document.getElementById('movieModal').querySelector('.modal-footer');
+                    let btnVisit = modalFooter.querySelector('a');
+                    setSiteBtnVisibility(movie, btnVisit);
+
+                    modalSpinner.classList.add('d-none');
+                    modalBody.classList.remove('d-none');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getStrImgBG -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetStrImgBG">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetStrImgBG" aria-expanded="true" aria-controls="collapseGetStrImgBG">
+            Function: getStrImgBG
+          </button>
+        </h2>
+        <div id="collapseGetStrImgBG" class="accordion-collapse collapse" aria-labelledby="headingGetStrImgBG">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getStrImgBG(movie) {
+                    let strImgBG = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
+
+                    if (movie.backdrop_path) {
+                      strImgBG += `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+                    }
+
+                    return strImgBG;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: displayGenreLabels -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplayGenreLabels">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDisplayGenreLabels" aria-expanded="true" aria-controls="collapseDisplayGenreLabels">
+            Function: displayGenreLabels
+          </button>
+        </h2>
+        <div id="collapseDisplayGenreLabels" class="accordion-collapse collapse" aria-labelledby="headingDisplayGenreLabels">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function displayGenreLabels(movie, containerId) {
+                    let containerElement = document.getElementById(containerId);
+                    containerElement.innerHTML = '';
+
+                    let genres = movie.genres;
+                    if (genres) {
+                      for (let i = 0; i < genres.length; i++) {
+                        let newSpan = document.createElement('span');
+                        newSpan.classList.add('genre')
+                        newSpan.innerText = genres[i].name;
+                        containerElement.appendChild(newSpan);
+                      }
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: displayTagline -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplayTagline">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDisplayTagline" aria-expanded="true" aria-controls="collapseDisplayTagline">
+            Function: displayTagline
+          </button>
+        </h2>
+        <div id="collapseDisplayTagline" class="accordion-collapse collapse" aria-labelledby="headingDisplayTagline">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function displayTagline(movie, containerId) {
+                    let containerElement = document.getElementById(containerId);
+                    containerElement.innerText = `"${movie.tagline}"`;
+
+                    if (movie.tagline) {
+                      containerElement.classList.remove('d-none');
+                      containerElement.classList.add('d-block');
+                    }
+                    else {
+                      containerElement.classList.remove('d-block');
+                      containerElement.classList.add('d-none');
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getScoreStr -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetScoreStr">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetScoreStr" aria-expanded="true" aria-controls="collapseGetScoreStr">
+            Function: getScoreStr
+          </button>
+        </h2>
+        <div id="collapseGetScoreStr" class="accordion-collapse collapse" aria-labelledby="headingGetScoreStr">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getScoreStr(movie) {
+                    let score = Math.round(movie.vote_average * 10) / 10;
+                    return score.toFixed(1) + '/10';
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getVoteStr -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetVoteStr">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetVoteStr" aria-expanded="true" aria-controls="collapseGetVoteStr">
+            Function: getVoteStr
+          </button>
+        </h2>
+        <div id="collapseGetVoteStr" class="accordion-collapse collapse" aria-labelledby="headingGetVoteStr">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getVoteStr(movie) {
+                    let compactFormat = Intl.NumberFormat(
+                      'en-US',
+                      { notation: "compact", maximumFractionDigits: 1 }
+                    );
+
+                    return compactFormat.format(movie.vote_count) + ' vote'
+                      + (movie.vote_count != 1 ? 's' : '');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: rankFromBtn -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingRankFromBtn">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseRankFromBtn" aria-expanded="true" aria-controls="collapseRankFromBtn">
+            Function: rankFromBtn
+          </button>
+        </h2>
+        <div id="collapseRankFromBtn" class="accordion-collapse collapse" aria-labelledby="headingRankFromBtn">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function rankFromBtn(btn) {
+                    return '#' + btn.getAttribute('data-movieRank');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getPosterPath -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetPosterPath">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetPosterPath" aria-expanded="true" aria-controls="collapseGetPosterPath">
+            Function: getPosterPath
+          </button>
+        </h2>
+        <div id="collapseGetPosterPath" class="accordion-collapse collapse" aria-labelledby="headingGetPosterPath">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getPosterPath(movie) {
+                    return `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: setSiteBtnVisibility -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSetSiteBtnVisibility">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseSetSiteBtnVisibility" aria-expanded="true" aria-controls="collapseSetSiteBtnVisibility">
+            Function: setSiteBtnVisibility
+          </button>
+        </h2>
+        <div id="collapseSetSiteBtnVisibility" class="accordion-collapse collapse" aria-labelledby="headingSetSiteBtnVisibility">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function setSiteBtnVisibility(movie, siteBtn) {
+                    if (movie.homepage) {
+                      siteBtn.classList.remove('invisible');
+                      siteBtn.href = movie.homepage;
+                    } else {
+                      siteBtn.classList.add('invisible');
+                      siteBtn.href = '';
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getYear -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetYear">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetYear" aria-expanded="true" aria-controls="collapseGetYear">
+            Function: getYear
+          </button>
+        </h2>
+        <div id="collapseGetYear" class="accordion-collapse collapse" aria-labelledby="headingGetYear">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getYear(movie) {
+                    let movieDate = new Date(movie.release_date);
+                    return movieDate.getFullYear();
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getHM -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetHM">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetHM" aria-expanded="true" aria-controls="collapseGetHM">
+            Function: getHM
+          </button>
+        </h2>
+        <div id="collapseGetHM" class="accordion-collapse collapse" aria-labelledby="headingGetHM">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getHM(movie) {
+                    return '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getCert -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetCert">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetCert" aria-expanded="true" aria-controls="collapseGetCert">
+            Function: getCert
+          </button>
+        </h2>
+        <div id="collapseGetCert" class="accordion-collapse collapse" aria-labelledby="headingGetCert">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function getCert(movieId) {
+                    let cert = 'MPA Rating Unknown';
+                    let data = await getMovieReleaseDates(movieId);
+
+                    if (data) {
+                      let results = data.results;
+
+                      if (results) {
+                        let releaseDates;
+
+                        for (let i = 0; i < results.length; i++) {
+                          if (results[i].iso_3166_1 === 'US') {
+                            releaseDates = results[i].release_dates;
+                            break;
+                          }
+                        }
+
+                        if (releaseDates) {
+                          let latestDate, releaseDate;
+
+                          for (let i = 0; i < releaseDates.length; i++) {
+                            releaseDate = new Date(releaseDates[i].release_date);
+
+                            if (releaseDate && (!latestDate || latestDate < releaseDate)) {
+                              cert = releaseDates[i].certification;
+                              latestDate = releaseDate;
+                            }
+                          }
+                        }
+                      }
+                    }
+
+                    return cert;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                Description coming soon
               </p>
             </div>
           </div>
