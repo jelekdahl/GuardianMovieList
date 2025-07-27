@@ -93,142 +93,28 @@
 
             <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                This section is used to declare global constants and variables.
+                The only global constant needed in this app is a key for the TMDB
+                API. It is used every time the app needs to call the
+                <code>fetch</code> method to access data from the TMDB network.
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getMovies -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetMovies">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetMovies" aria-expanded="true" aria-controls="collapseGetMovies">
-            Function: getMovies
-          </button>
-        </h2>
-        <div id="collapseGetMovies" class="accordion-collapse collapse" aria-labelledby="headingGetMovies">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  async function getMovies() {
-                    try {
-                      let response = await fetch('https://api.themoviedb.org/3/movie/popular', {
-                        headers: {
-                          'Authorization': `Bearer ${API_KEY}`
-                        }
-                      });
-
-                      let data = await response.json();
-                      return data;
-                    } catch (error) {
-                      Swal.fire({
-                        backdrop: false,
-                        title: 'Oops!',
-                        text: 'Something went wrong reaching the TMDB API.',
-                        icon: 'error'
-                      });
-                    }
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                Of course, it's generally bad practice to hardcode potentially
+                sensitive data, such as some API keys, in a place easily accessible 
+                to the user (in more ways than one, which I won't reveal to make
+                it easier for those who don't know).
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getMovie -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetMovie">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetMovie" aria-expanded="true" aria-controls="collapseGetMovie">
-            Function: getMovie
-          </button>
-        </h2>
-        <div id="collapseGetMovie" class="accordion-collapse collapse" aria-labelledby="headingGetMovie">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  async function getMovie(movieId) {
-                    try {
-                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
-                        headers: {
-                          'Authorization': `Bearer ${API_KEY}`
-                        }
-                      });
-
-                      let data = await response.json();
-                      return data;
-                    } catch (error) {
-                      Swal.fire({
-                        backdrop: false,
-                        title: 'Oops!',
-                        text: 'Something went wrong reaching the TMDB API.',
-                        icon: 'error'
-                      });
-                    }
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                The reason I did it here is because, at the time I built this app,
+                I hadn't learned the best practices for managing secrets. I've since
+                built other websites following those practices, to protect much more
+                sensitive important data.
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getMovieReleaseDates -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetMovieReleaseDates">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetMovieReleaseDates" aria-expanded="true" aria-controls="collapseGetMovieReleaseDates">
-            Function: getMovieReleaseDates
-          </button>
-        </h2>
-        <div id="collapseGetMovieReleaseDates" class="accordion-collapse collapse" aria-labelledby="headingGetMovieReleaseDates">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  async function getMovieReleaseDates(movieId) {
-                    try {
-                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/release_dates`, {
-                        headers: {
-                          'Authorization': `Bearer ${API_KEY}`
-                        }
-                      });
-
-                      let data = await response.json();
-                      return data;
-                    } catch (error) {
-                      Swal.fire({
-                        backdrop: false,
-                        title: 'Oops!',
-                        text: 'Something went wrong reaching the TMDB API.',
-                        icon: 'error'
-                      });
-                    }
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                But at the time, this was out of the scope of the concepts I was
+                learning with this project - especially for data that's free, easy
+                to obtain and replace, and not tied to any confidential information.
+                For what it's worth, I redacted the actual key in this code page.
               </p>
             </div>
           </div>
@@ -291,7 +177,100 @@
 
             <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                This function is used to populate the app page with cards containing
+                basic info for each one of the current 20 most-popular films. It is
+                called when the app page is loaded.
+              </p>
+              <p>
+                Each card will display the official poster, title, and overview of
+                its respective movie. It will also include a "More Info" button
+                that can be clicked to display a modal containing additional
+                details about that movie.
+              </p>
+              <p>
+                The info for the movies is obtained from a call to an asynchronous
+                function that fetches data from the TMDB API. The resulting object
+                contains an array of other objects, each one containing data for one
+                of the top 20 movies.
+              </p>
+              <p>
+                These movie objects are stored in the array in order of their
+                popularity ranking, from most to least. As such, these placements
+                will be used to store each movie's rank as a
+                <code>data-attribute</code> in its "More Info" button. Doing this
+                will allow those ranks to be efficiently retrieved and displayed in
+                the movie details modal, since an API call for an individual movie's
+                details does not provide the rank.
+              </p>
+              <p>
+                In addition to the above-mentioned info on the card, the movie
+                objects also include the movies' IDs on the TMDB website. These IDs
+                will also be stored as <code>data-attribute</code>s in the movies'
+                respective "More Info" buttons. This will allow those IDs to be used
+                to pull more-detailed info about each movie when their "More Info"
+                buttons are clicked.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getMovies -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetMovies">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetMovies" aria-expanded="true" aria-controls="collapseGetMovies">
+            Function: getMovies
+          </button>
+        </h2>
+        <div id="collapseGetMovies" class="accordion-collapse collapse" aria-labelledby="headingGetMovies">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function getMovies() {
+                    try {
+                      let response = await fetch('https://api.themoviedb.org/3/movie/popular', {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
+
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
+                        backdrop: false,
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain basic information about the current
+                20 most-popular films. It is called by the function that gets fired
+                when the app page is loaded.
+              </p>
+              <p>
+                The movie details are obtained via the <code>fetch</code> method,
+                which calls the TMDB API to asynchronously pull this data from their
+                network. <code>Await</code>ing the resulting promise yields a
+                <code>Response</code> object, whose <code>json</code> method
+                asynchronously parses this object's data as JSON.
+              </p>
+              <p>
+                If this function fails at any point, the try/catch block will fire
+                a SweetAlert message informing of the error. Otherwise, the function
+                creates and returns an object containing data for the current 20
+                most popular films. More specifically, the object has a property
+                named results, which is an array of objects whose elements each
+                contain the data for a single movie.
               </p>
             </div>
           </div>
@@ -352,73 +331,59 @@
 
             <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                This function is used to populate the movie details modal with
+                information from the TMDB API for a particular movie. It is called
+                by the function that gets fired when the user clicks the "More Info"
+                button for a movie on the app page.
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getStrImgBG -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetStrImgBG">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetStrImgBG" aria-expanded="true" aria-controls="collapseGetStrImgBG">
-            Function: getStrImgBG
-          </button>
-        </h2>
-        <div id="collapseGetStrImgBG" class="accordion-collapse collapse" aria-labelledby="headingGetStrImgBG">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getStrImgBG(movie) {
-                    let strImgBG = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
-
-                    if (movie.backdrop_path) {
-                      strImgBG += `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
-                    }
-
-                    return strImgBG;
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                The clicked button - passed in as the lone argument - provides the
+                TMDB ID of the movie that will be displayed in the modal, via a
+                <code>data-attribute</code> that was set on the button when the
+                page was loaded.
+              </p>
+              <p>
+                Two <code>async</code> functions retrieve the info - one for the
+                most-recent US certification rating, another for everything else.
+                This info is used to populate the various containers of the modal.
+                As this is happening, a spinner is shown until the data has been
+                fully loaded.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Function: displayGenreLabels -->
+      <!-- Function: getMovie -->
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingDisplayGenreLabels">
+        <h2 class="accordion-header" id="headingGetMovie">
           <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseDisplayGenreLabels" aria-expanded="true" aria-controls="collapseDisplayGenreLabels">
-            Function: displayGenreLabels
+              data-bs-target="#collapseGetMovie" aria-expanded="true" aria-controls="collapseGetMovie">
+            Function: getMovie
           </button>
         </h2>
-        <div id="collapseDisplayGenreLabels" class="accordion-collapse collapse" aria-labelledby="headingDisplayGenreLabels">
+        <div id="collapseGetMovie" class="accordion-collapse collapse" aria-labelledby="headingGetMovie">
           <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
             <div class="col-12 col-lg-8">
               <pre class="line-numbers">
                 <code class="language-js">
-                  function displayGenreLabels(movie, containerId) {
-                    let containerElement = document.getElementById(containerId);
-                    containerElement.innerHTML = '';
+                  async function getMovie(movieId) {
+                    try {
+                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}`, {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
 
-                    let genres = movie.genres;
-                    if (genres) {
-                      for (let i = 0; i < genres.length; i++) {
-                        let newSpan = document.createElement('span');
-                        newSpan.classList.add('genre')
-                        newSpan.innerText = genres[i].name;
-                        containerElement.appendChild(newSpan);
-                      }
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
+                        backdrop: false,
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
                     }
                   }
                 </code>
@@ -427,263 +392,22 @@
 
             <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                This function is used to obtain top level details about a movie
+                whose TMDB ID matches the passed-in string. It is called by the
+                function that gets fired when the user clicks the "More Info"
+                button for any movie on the app page.
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: displayTagline -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingDisplayTagline">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseDisplayTagline" aria-expanded="true" aria-controls="collapseDisplayTagline">
-            Function: displayTagline
-          </button>
-        </h2>
-        <div id="collapseDisplayTagline" class="accordion-collapse collapse" aria-labelledby="headingDisplayTagline">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function displayTagline(movie, containerId) {
-                    let containerElement = document.getElementById(containerId);
-                    containerElement.innerText = `"${movie.tagline}"`;
-
-                    if (movie.tagline) {
-                      containerElement.classList.remove('d-none');
-                      containerElement.classList.add('d-block');
-                    }
-                    else {
-                      containerElement.classList.remove('d-block');
-                      containerElement.classList.add('d-none');
-                    }
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                The movie details are obtained via the <code>fetch</code> method,
+                which calls the TMDB API to asynchronously pull this data from their
+                network. <code>Await</code>ing the resulting promise yields a
+                <code>Response</code> object, whose <code>json</code> method
+                asynchronously parses this object's data as JSON.
               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getScoreStr -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetScoreStr">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetScoreStr" aria-expanded="true" aria-controls="collapseGetScoreStr">
-            Function: getScoreStr
-          </button>
-        </h2>
-        <div id="collapseGetScoreStr" class="accordion-collapse collapse" aria-labelledby="headingGetScoreStr">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getScoreStr(movie) {
-                    let score = Math.round(movie.vote_average * 10) / 10;
-                    return score.toFixed(1) + '/10';
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getVoteStr -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetVoteStr">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetVoteStr" aria-expanded="true" aria-controls="collapseGetVoteStr">
-            Function: getVoteStr
-          </button>
-        </h2>
-        <div id="collapseGetVoteStr" class="accordion-collapse collapse" aria-labelledby="headingGetVoteStr">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getVoteStr(movie) {
-                    let compactFormat = Intl.NumberFormat(
-                      'en-US',
-                      { notation: "compact", maximumFractionDigits: 1 }
-                    );
-
-                    return compactFormat.format(movie.vote_count) + ' vote'
-                      + (movie.vote_count != 1 ? 's' : '');
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: rankFromBtn -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingRankFromBtn">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseRankFromBtn" aria-expanded="true" aria-controls="collapseRankFromBtn">
-            Function: rankFromBtn
-          </button>
-        </h2>
-        <div id="collapseRankFromBtn" class="accordion-collapse collapse" aria-labelledby="headingRankFromBtn">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function rankFromBtn(btn) {
-                    return '#' + btn.getAttribute('data-movieRank');
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getPosterPath -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetPosterPath">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetPosterPath" aria-expanded="true" aria-controls="collapseGetPosterPath">
-            Function: getPosterPath
-          </button>
-        </h2>
-        <div id="collapseGetPosterPath" class="accordion-collapse collapse" aria-labelledby="headingGetPosterPath">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getPosterPath(movie) {
-                    return `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: setSiteBtnVisibility -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingSetSiteBtnVisibility">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseSetSiteBtnVisibility" aria-expanded="true" aria-controls="collapseSetSiteBtnVisibility">
-            Function: setSiteBtnVisibility
-          </button>
-        </h2>
-        <div id="collapseSetSiteBtnVisibility" class="accordion-collapse collapse" aria-labelledby="headingSetSiteBtnVisibility">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function setSiteBtnVisibility(movie, siteBtn) {
-                    if (movie.homepage) {
-                      siteBtn.classList.remove('invisible');
-                      siteBtn.href = movie.homepage;
-                    } else {
-                      siteBtn.classList.add('invisible');
-                      siteBtn.href = '';
-                    }
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getYear -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetYear">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetYear" aria-expanded="true" aria-controls="collapseGetYear">
-            Function: getYear
-          </button>
-        </h2>
-        <div id="collapseGetYear" class="accordion-collapse collapse" aria-labelledby="headingGetYear">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getYear(movie) {
-                    let movieDate = new Date(movie.release_date);
-                    return movieDate.getFullYear();
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Function: getHM -->
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingGetHM">
-          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#collapseGetHM" aria-expanded="true" aria-controls="collapseGetHM">
-            Function: getHM
-          </button>
-        </h2>
-        <div id="collapseGetHM" class="accordion-collapse collapse" aria-labelledby="headingGetHM">
-          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
-            <div class="col-12 col-lg-8">
-              <pre class="line-numbers">
-                <code class="language-js">
-                  function getHM(movie) {
-                    return '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
-                  }
-                </code>
-              </pre>
-            </div>
-
-            <div class="col-12 col-lg-4">
-              <p>
-                Description coming soon
+                If all of this succeeds, an object containing the data for the
+                movie is created and returned. Otherwise, the try/catch block will
+                fire a SweetAlert message informing of the error.
               </p>
             </div>
           </div>
@@ -743,7 +467,539 @@
 
             <div class="col-12 col-lg-4">
               <p>
-                Description coming soon
+                This function is used to find the most-recent certification rating
+                given in the US to a movie whose TMDB ID matches the passed-in
+                string. It is called by the function that gets fired when the user
+                clicks the "More Details" button for a movie on the app page.
+              </p>
+              <p>
+                If the passed-in string is a valid TMDB movie ID, it will be used
+                to make a call to the TMDB API. The result of this call will be a
+                <code>Response</code> object which, when converted to an object
+                via its <code>json</code> method, will have an array of objects as
+                one of its properties. 
+              </p>
+              <p>
+                Each of these objects correspond to different country via its
+                <code>iso_3166_1</code> property. If one corresponds to the US,
+                its <code>release_dates</code> property will be another array of
+                objects, each one corresponding to a distinct release date in the
+                US along with the certification rating it received. The function
+                will find the most recent release date and return the rating the
+                movie was given for that release.
+              </p>
+              <p>
+                If no US release dates were found, the function will return the
+                phrase "MPA Rating Unknown".
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getMovieReleaseDates -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetMovieReleaseDates">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetMovieReleaseDates" aria-expanded="true" aria-controls="collapseGetMovieReleaseDates">
+            Function: getMovieReleaseDates
+          </button>
+        </h2>
+        <div id="collapseGetMovieReleaseDates" class="accordion-collapse collapse" aria-labelledby="headingGetMovieReleaseDates">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  async function getMovieReleaseDates(movieId) {
+                    try {
+                      let response = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/release_dates`, {
+                        headers: {
+                          'Authorization': `Bearer ${API_KEY}`
+                        }
+                      });
+
+                      let data = await response.json();
+                      return data;
+                    } catch (error) {
+                      Swal.fire({
+                        backdrop: false,
+                        title: 'Oops!',
+                        text: 'Something went wrong reaching the TMDB API.',
+                        icon: 'error'
+                      });
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the release dates (along with their
+                respective certification ratings) in every country for a movie
+                whose TMDB ID matches the passed-in string. It is called by the
+                function used to find a movie's most-recent US certification
+                rating.
+              </p>
+              <p>
+                The data is obtained via the <code>fetch</code> method, which calls
+                the TMDB API to asynchronously pull this data from their network.
+                <code>Await</code>ing the resulting promise yields a
+                <code>Response</code> object, whose <code>json</code> method
+                asynchronously parses this object's data as JSON.
+              </p>
+              <p>
+                If this function fails at any point, the try/catch block will fire
+                a SweetAlert message informing of the error. Otherwise, the function
+                creates and returns an object containing data for release dates and
+                certification ratings for the movie.
+              </p>
+              <p>
+                More specifically, the object has a property named results, which
+                is itself an array of objects. Each of these objects has a property
+                representing the country code of one particular country; another
+                property is an array of objects containing data on each of the
+                distinct release dates of this film in this country. These release
+                date objects also contain the associated certification rating given
+                on that release date.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getStrImgBG -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetStrImgBG">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetStrImgBG" aria-expanded="true" aria-controls="collapseGetStrImgBG">
+            Function: getStrImgBG
+          </button>
+        </h2>
+        <div id="collapseGetStrImgBG" class="accordion-collapse collapse" aria-labelledby="headingGetStrImgBG">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getStrImgBG(movie) {
+                    let strImgBG = 'linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75))';
+
+                    if (movie.backdrop_path) {
+                      strImgBG += `, url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`;
+                    }
+
+                    return strImgBG;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the css value for the
+                <code>background-image</code> property of the details modal for a
+                particular movie. It is called by the function that gets fired when
+                the user clicks the "More Info" button for a movie on the app page.
+              </p>
+              <p>
+                The file name and extension for a particular film's backdrop image
+                is obtained from a passed-in object which was created from a call
+                to the TMDB API for details on that film.
+              </p>
+              <p>
+                All of TMDB's movie backdrop files are stored in the directory
+                <code>"https://image.tmdb.org/t/p/w500"</code>, so appending the
+                file name and extension onto the end of this yields the url of the
+                backdrop. If this image exists, it's combined with a linear gradient
+                to darken it. Otherwise, the gradient itself becomes the backdrop.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: displayGenreLabels -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplayGenreLabels">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDisplayGenreLabels" aria-expanded="true" aria-controls="collapseDisplayGenreLabels">
+            Function: displayGenreLabels
+          </button>
+        </h2>
+        <div id="collapseDisplayGenreLabels" class="accordion-collapse collapse" aria-labelledby="headingDisplayGenreLabels">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function displayGenreLabels(movie, containerId) {
+                    let containerElement = document.getElementById(containerId);
+                    containerElement.innerHTML = '';
+
+                    let genres = movie.genres;
+                    if (genres) {
+                      for (let i = 0; i < genres.length; i++) {
+                        let newSpan = document.createElement('span');
+                        newSpan.classList.add('genre')
+                        newSpan.innerText = genres[i].name;
+                        containerElement.appendChild(newSpan);
+                      }
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to display a movie's genres (if it has any) in
+                a container having the passed-in ID. It is called by the function
+                that gets fired when the user clicks the "More Info" button for a
+                movie on the app page.
+              </p>
+              <p>
+                The genres are obtained from a passed-in object that was created
+                from a call to the TMDB API for details on one particular film.
+              </p>
+              <p>
+                If the object has genre data for this movie, it's in the form of an
+                array of objects, each one having a string for the name of a genre.
+                These genre names are written inside stylized label elements and
+                inserted into the container.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: displayTagline -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingDisplayTagline">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseDisplayTagline" aria-expanded="true" aria-controls="collapseDisplayTagline">
+            Function: displayTagline
+          </button>
+        </h2>
+        <div id="collapseDisplayTagline" class="accordion-collapse collapse" aria-labelledby="headingDisplayTagline">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function displayTagline(movie, containerId) {
+                    let containerElement = document.getElementById(containerId);
+                    containerElement.innerText = `"${movie.tagline}"`;
+
+                    if (movie.tagline) {
+                      containerElement.classList.remove('d-none');
+                      containerElement.classList.add('d-block');
+                    }
+                    else {
+                      containerElement.classList.remove('d-block');
+                      containerElement.classList.add('d-none');
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to display a movie's tagline (if it has one)
+                in a container having the passed-in ID. It is called by the
+                function that gets fired when the user clicks the "More Info"
+                button for a movie on the app page.
+              </p>
+              <p>
+                The tagline is obtained from a passed-in object that was created
+                from a call to the TMDB API for details on one particular film. If
+                the the tagline value is non-empty (i.e. if the movie has a
+                tagline), the container will be displayed. Otherwise it will be
+                hidden.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getScoreStr -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetScoreStr">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetScoreStr" aria-expanded="true" aria-controls="collapseGetScoreStr">
+            Function: getScoreStr
+          </button>
+        </h2>
+        <div id="collapseGetScoreStr" class="accordion-collapse collapse" aria-labelledby="headingGetScoreStr">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getScoreStr(movie) {
+                    let score = Math.round(movie.vote_average * 10) / 10;
+                    return score.toFixed(1) + '/10';
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the average vote score for a movie
+                on the TMDB website. It is called by the function that gets
+                fired when the user clicks the "More Info" button for a movie on
+                the app page.
+              </p>
+              <p>
+                The average vote score is obtained from a passed-in object that
+                was created from a call to the TMDB API for details on one
+                particular film. Some math is used to round it to a single decimal
+                point, and then this value is appended to a string to format the
+                score as a value out of 10.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getVoteStr -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetVoteStr">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetVoteStr" aria-expanded="true" aria-controls="collapseGetVoteStr">
+            Function: getVoteStr
+          </button>
+        </h2>
+        <div id="collapseGetVoteStr" class="accordion-collapse collapse" aria-labelledby="headingGetVoteStr">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getVoteStr(movie) {
+                    let compactFormat = Intl.NumberFormat(
+                      'en-US',
+                      { notation: "compact", maximumFractionDigits: 1 }
+                    );
+
+                    return compactFormat.format(movie.vote_count) + ' vote'
+                      + (movie.vote_count != 1 ? 's' : '');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the number of votes for a movie on
+                the TMDB website, as a string in a stylized format. It is called by
+                the function that gets fired when the user clicks the "More Info"
+                button for a movie on the app page.
+              </p>
+              <p>
+                The vote count is obtained from a passed-in object that was created
+                from a call to the TMDB API for details on one particular film.
+                This count is then converted to a string in the "compact" number
+                format - e.g. 1.2K for 1,243 - concatenated with the word
+                <code>" vote"</code> or <code>" votes"</code> depending on the
+                amount.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: rankFromBtn -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingRankFromBtn">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseRankFromBtn" aria-expanded="true" aria-controls="collapseRankFromBtn">
+            Function: rankFromBtn
+          </button>
+        </h2>
+        <div id="collapseRankFromBtn" class="accordion-collapse collapse" aria-labelledby="headingRankFromBtn">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function rankFromBtn(btn) {
+                    return '#' + btn.getAttribute('data-movieRank');
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain a data attribute value
+                representing a movie rank from a passed-in button element. It is
+                called by the function that gets fired when the user clicks the
+                "More Info" button for a movie on the app page. When returned, the
+                ranking has a hashtag appended to the front of it for stylistic
+                purposes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getPosterPath -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetPosterPath">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetPosterPath" aria-expanded="true" aria-controls="collapseGetPosterPath">
+            Function: getPosterPath
+          </button>
+        </h2>
+        <div id="collapseGetPosterPath" class="accordion-collapse collapse" aria-labelledby="headingGetPosterPath">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getPosterPath(movie) {
+                    return `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the filepath of a movie's poster
+                within the TMDB website. It is called by the function that gets
+                fired when the user clicks the "More Info" button for a movie on
+                the app page.
+              </p>
+              <p>
+                The poster's file name and extension are obtained from a passed-in
+                object that was created from a call to the TMDB API for details on
+                one particular film.
+              </p>
+              <p>
+                All of TMDB's movie poster files are stored in the directory
+                <code>"https://image.tmdb.org/t/p/w500"</code>, so appending the
+                file name and extension to the end of this yields the url of the
+                poster.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: setSiteBtnVisibility -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingSetSiteBtnVisibility">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseSetSiteBtnVisibility" aria-expanded="true" aria-controls="collapseSetSiteBtnVisibility">
+            Function: setSiteBtnVisibility
+          </button>
+        </h2>
+        <div id="collapseSetSiteBtnVisibility" class="accordion-collapse collapse" aria-labelledby="headingSetSiteBtnVisibility">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function setSiteBtnVisibility(movie, siteBtn) {
+                    if (movie.homepage) {
+                      siteBtn.classList.remove('invisible');
+                      siteBtn.href = movie.homepage;
+                    } else {
+                      siteBtn.classList.add('invisible');
+                      siteBtn.href = '';
+                    }
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to set the visibility of a passed-in button,
+                depending on whether the passed-in movie data object shows it has
+                an official website. The function is called by the one that gets
+                fired when the user clicks the "More Info" button for a movie on
+                the app page, in order to set the visibility of the "Official
+                Website" button on the details modal for that movie.
+              </p>
+              <p>
+                The passed-in object is one created from a call to the TMDB API for
+                details on one particular movie. If this object has a non-empty
+                string for the movie's website url, it's used as the
+                <code>href</code> of the button and the button is made visible.
+                Otherwise, the button is made invisible.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getYear -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetYear">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetYear" aria-expanded="true" aria-controls="collapseGetYear">
+            Function: getYear
+          </button>
+        </h2>
+        <div id="collapseGetYear" class="accordion-collapse collapse" aria-labelledby="headingGetYear">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getYear(movie) {
+                    let movieDate = new Date(movie.release_date);
+                    return movieDate.getFullYear();
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the year of release of a film. It is
+                called by the function that gets fired when the user clicks "More
+                Info" button for a movie on the app page.
+              </p>
+              <p>
+                The release date is obtained from a passed-in object that was
+                created from a call to the TMDB API for details on one particular
+                film. This date comes in the form of a string so it is passed into
+                a <code>Date</code> object so that the 4-digit year can be obtained
+                via an object method.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Function: getHM -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGetHM">
+          <button class="accordion-button code-header collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseGetHM" aria-expanded="true" aria-controls="collapseGetHM">
+            Function: getHM
+          </button>
+        </h2>
+        <div id="collapseGetHM" class="accordion-collapse collapse" aria-labelledby="headingGetHM">
+          <div class="row container bg-light ms-0 p-3 border border-1 border-dark-subtle">
+            <div class="col-12 col-lg-8">
+              <pre class="line-numbers">
+                <code class="language-js">
+                  function getHM(movie) {
+                    return '' + Math.floor(movie.runtime / 60) + 'h ' + (movie.runtime % 60) + 'm';
+                  }
+                </code>
+              </pre>
+            </div>
+
+            <div class="col-12 col-lg-4">
+              <p>
+                This function is used to obtain the runtime of a film in an "Xh Ym"
+                format. It is called by the function that gets fired when the user
+                clicks the "More Info" button for a movie on the app page.
+              </p>
+              <p>
+                The runtime data is obtained from a passed-in object that was
+                created from a call to the TMDB API for details on one particular
+                film. Math and string concatenation are used to return the runtime
+                in the desired format.
               </p>
             </div>
           </div>
